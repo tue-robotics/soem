@@ -4,13 +4,14 @@ project(soem)
 
 find_package(catkin QUIET)
 if(catkin_FOUND)
-  catkin_package( INCLUDE_DIRS soem osal oshw/linux
+  catkin_package( INCLUDE_DIRS soem osal osal/linux oshw/linux
                   LIBRARIES soem
                   )
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR} 
                     ${CMAKE_CURRENT_SOURCE_DIR}/osal
+                    ${CMAKE_CURRENT_SOURCE_DIR}/osal/linux
                     ${CMAKE_CURRENT_SOURCE_DIR}/oshw/linux
                     ${CMAKE_CURRENT_SOURCE_DIR}/soem )
 
