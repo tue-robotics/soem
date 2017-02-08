@@ -1,12 +1,13 @@
 /*
- * Simple Open EtherCAT Master Library 
+ * Simple Open EtherCAT Master Library
  *
  * File    : ethercatmain.h
- * Version : 1.3.0
- * Date    : 24-02-2013
- * Copyright (C) 2005-2013 Speciaal Machinefabriek Ketels v.o.f.
- * Copyright (C) 2005-2013 Arthur Ketels
- * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven 
+ * Version : 1.3.1
+ * Date    : 11-03-2015
+ * Copyright (C) 2005-2015 Speciaal Machinefabriek Ketels v.o.f.
+ * Copyright (C) 2005-2015 Arthur Ketels
+ * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven
+ * Copyright (C) 2014-2015 rt-labs AB , Sweden
  *
  * SOEM is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2 as published by the Free
@@ -27,20 +28,20 @@
  * This exception does not invalidate any other reasons why a work based on
  * this file might be covered by the GNU General Public License.
  *
- * The EtherCAT Technology, the trade name and logo "EtherCAT" are the intellectual
+ * The EtherCAT Technology, the trade name and logo “EtherCAT” are the intellectual
  * property of, and protected by Beckhoff Automation GmbH. You can use SOEM for
  * the sole purpose of creating, using and/or selling or otherwise distributing
  * an EtherCAT network master provided that an EtherCAT Master License is obtained
  * from Beckhoff Automation GmbH.
  *
  * In case you did not receive a copy of the EtherCAT Master License along with
- * SOEM write to Beckhoff Automation GmbH, Eiserstrasse 5, D-33415 Verl, Germany
+ * SOEM write to Beckhoff Automation GmbH, Eiserstraße 5, D-33415 Verl, Germany
  * (www.beckhoff.com).
  */
 
-/** \file 
+/** \file
  * \brief
- * Headerfile for ethercatmain.c 
+ * Headerfile for ethercatmain.c
  */
 
 #ifndef _ethercatmain_
@@ -52,7 +53,7 @@ extern "C"
 {
 #endif
 
-/** max. etries in EtherCAT error list */
+/** max. entries in EtherCAT error list */
 #define EC_MAXELIST       64
 /** max. length of readable name in slavelist and Object Description List */
 #define EC_MAXNAME        40
@@ -63,7 +64,7 @@ extern "C"
 /** max. number of IO segments per group */
 #define EC_MAXIOSEGMENTS  64
 /** max. mailbox size */
-#define EC_MAXMBX         0x3ff
+#define EC_MAXMBX         1486
 /** max. eeprom PDO entries */
 #define EC_MAXEEPDO       0x200
 /** max. SM used */
@@ -72,6 +73,8 @@ extern "C"
 #define EC_MAXFMMU        4
 /** max. Adapter */
 #define EC_MAXLEN_ADAPTERNAME    128
+/** define maximum number of concurrent threads in mapping */
+#define EC_MAX_MAPT           8
 
 typedef struct ec_adapter ec_adaptert;
 struct ec_adapter
@@ -94,7 +97,7 @@ typedef struct PACKED
    uint8   FMMUtype;
    uint8   FMMUactive;
    uint8   unused1;
-   uint16  unused2;  
+   uint16  unused2;
 }  ec_fmmut;
 PACKED_END
 
@@ -196,7 +199,7 @@ typedef struct
    uint16           mbx_proto;
    /** Counter value of mailbox link layer protocol 1..7 */
    uint8            mbx_cnt;
-   /** has DC capabillity */
+   /** has DC capability */
    boolean          hasdc;
    /** Physical type; Ebus, EtherNet combinations */
    uint8            ptype;
@@ -215,7 +218,7 @@ typedef struct
    /** DC receivetimes on port A */
    int32            DCrtA;
    /** DC receivetimes on port B */
-   int32            DCrtB; 
+   int32            DCrtB;
    /** DC receivetimes on port C */
    int32            DCrtC;
    /** DC receivetimes on port D */
@@ -226,7 +229,7 @@ typedef struct
    uint16           DCnext;
    /** previous DC slave */
    uint16           DCprevious;
-   /** DC cyle time in ns */
+   /** DC cycle time in ns */
    int32            DCcycle;
    /** DC shift from clock modulus boundary */
    int32            DCshift;
@@ -326,7 +329,7 @@ typedef struct
 } ec_eepromSMt;
 
 /** record to store rxPDO and txPDO table from eeprom */
-typedef struct 
+typedef struct
 {
    uint16  Startpos;
    uint16  Length;
@@ -372,7 +375,7 @@ typedef struct
 } ec_idxstackT;
 
 /** ringbuf for error storage */
-typedef struct 
+typedef struct
 {
    int16     head;
    int16     tail;
@@ -386,7 +389,7 @@ typedef struct PACKED
    uint8   n;
    uint8   nu1;
    uint8   SMtype[EC_MAXSM];
-} ec_SMcommtypet;   
+} ec_SMcommtypet;
 PACKED_END
 
 /** SDO assign structure for CA */
@@ -396,7 +399,7 @@ typedef struct PACKED
    uint8   n;
    uint8   nu1;
    uint16  index[256];
-} ec_PDOassignt;   
+} ec_PDOassignt;
 PACKED_END
 
 /** SDO description structure for CA */
@@ -406,7 +409,7 @@ typedef struct PACKED
    uint8   n;
    uint8   nu1;
    uint32  PDO[256];
-} ec_PDOdesct;   
+} ec_PDOdesct;
 PACKED_END
 
 /** Context structure , referenced by all ecx functions*/
@@ -451,7 +454,7 @@ typedef struct
    /** internal, SM list from eeprom */
    ec_eepromSMt   *eepSM;
    /** internal, FMMU list from eeprom */
-   ec_eepromFMMUt *eepFMMU; 
+   ec_eepromFMMUt *eepFMMU;
    /** registered FoE hook */
    int            (*FOEhook)(uint16 slave, int packetnumber, int datasize);
 } ecx_contextt;
@@ -472,8 +475,8 @@ void ec_pusherror(const ec_errort *Ec);
 boolean ec_poperror(ec_errort *Ec);
 boolean ec_iserror(void);
 void ec_packeterror(uint16 Slave, uint16 Index, uint8 SubIdx, uint16 ErrorCode);
-int ec_init(char * ifname);
-int ec_init_redundant(char *ifname, char *if2name);
+int ec_init(const char * ifname);
+int ec_init_redundant(const char *ifname, char *if2name);
 void ec_close(void);
 uint8 ec_siigetbyte(uint16 slave, uint16 address);
 int16 ec_siifind(uint16 slave, uint16 cat);
@@ -513,8 +516,8 @@ void ecx_pusherror(ecx_contextt *context, const ec_errort *Ec);
 boolean ecx_poperror(ecx_contextt *context, ec_errort *Ec);
 boolean ecx_iserror(ecx_contextt *context);
 void ecx_packeterror(ecx_contextt *context, uint16 Slave, uint16 Index, uint8 SubIdx, uint16 ErrorCode);
-int ecx_init(ecx_contextt *context, char * ifname);
-int ecx_init_redundant(ecx_contextt *context, ecx_redportt *redport, char *ifname, char *if2name);
+int ecx_init(ecx_contextt *context, const char * ifname);
+int ecx_init_redundant(ecx_contextt *context, ecx_redportt *redport, const char *ifname, char *if2name);
 void ecx_close(ecx_contextt *context);
 uint8 ecx_siigetbyte(ecx_contextt *context, uint16 slave, uint16 address);
 int16 ecx_siifind(ecx_contextt *context, uint16 slave, uint16 cat);

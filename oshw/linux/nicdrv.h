@@ -1,12 +1,13 @@
 /*
- * Simple Open EtherCAT Master Library 
+ * Simple Open EtherCAT Master Library
  *
  * File    : nicdrv.h
- * Version : 1.3.0
- * Date    : 24-02-2013
- * Copyright (C) 2005-2013 Speciaal Machinefabriek Ketels v.o.f.
- * Copyright (C) 2005-2013 Arthur Ketels
- * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven 
+ * Version : 1.3.1
+ * Date    : 11-03-2015
+ * Copyright (C) 2005-2015 Speciaal Machinefabriek Ketels v.o.f.
+ * Copyright (C) 2005-2015 Arthur Ketels
+ * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven
+ * Copyright (C) 2014-2015 rt-labs AB , Sweden
  *
  * SOEM is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2 as published by the Free
@@ -38,9 +39,9 @@
  * (www.beckhoff.com).
  */
 
-/** \file 
+/** \file
  * \brief
- * Headerfile for nicdrv.c 
+ * Headerfile for nicdrv.c
  */
 
 #ifndef _nicdrvh_
@@ -70,7 +71,7 @@ typedef struct
    int         (*rxbufstat)[EC_MAXBUF];
    /** received MAC source address (middle word) */
    int         (*rxsa)[EC_MAXBUF];
-} ec_stackT;   
+} ec_stackT;
 
 /** pointer structure to buffers for redundant port */
 typedef struct
@@ -115,8 +116,8 @@ typedef struct
    /** current redundancy state */
    int redstate;
    /** pointer to redundancy port and buffers */
-   ecx_redportt *redport;   
-   pthread_mutex_t getindex_mutex; 
+   ecx_redportt *redport;
+   pthread_mutex_t getindex_mutex;
    pthread_mutex_t tx_mutex;
    pthread_mutex_t rx_mutex;
 } ecx_portt;

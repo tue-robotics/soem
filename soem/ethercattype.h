@@ -1,12 +1,13 @@
 /*
- * Simple Open EtherCAT Master Library 
+ * Simple Open EtherCAT Master Library
  *
  * File    : ethercattype.h
- * Version : 1.3.0
- * Date    : 24-02-2013
- * Copyright (C) 2005-2013 Speciaal Machinefabriek Ketels v.o.f.
- * Copyright (C) 2005-2013 Arthur Ketels
- * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven 
+ * Version : 1.3.1
+ * Date    : 11-03-2015
+ * Copyright (C) 2005-2015 Speciaal Machinefabriek Ketels v.o.f.
+ * Copyright (C) 2005-2015 Arthur Ketels
+ * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven
+ * Copyright (C) 2014-2015 rt-labs AB , Sweden
  *
  * SOEM is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2 as published by the Free
@@ -27,7 +28,7 @@
  * This exception does not invalidate any other reasons why a work based on
  * this file might be covered by the GNU General Public License.
  *
- * The EtherCAT Technology, the trade name and logo EtherCAT are the intellectual
+ * The EtherCAT Technology, the trade name and logo “EtherCAT” are the intellectual
  * property of, and protected by Beckhoff Automation GmbH. You can use SOEM for
  * the sole purpose of creating, using and/or selling or otherwise distributing
  * an EtherCAT network master provided that an EtherCAT Master License is obtained
@@ -39,15 +40,15 @@
  */
 
 /** \file
- * \brief   
+ * \brief
  * General typedefs and defines for EtherCAT.
  *
- * Defines that could need optimalisation for specific applications
+ * Defines that could need optimisation for specific applications
  * are the EC_TIMEOUTxxx. Assumptions for the standard settings are a
  * standard linux PC or laptop and a wired connection to maximal 100 slaves.
- * For use with wireless connections or lots of slaves the timouts need
+ * For use with wireless connections or lots of slaves the timeouts need
  * increasing. For fast systems running Xenomai and RT-net or alike the
- * timeouts need to be shorter.   
+ * timeouts need to be shorter.
  */
 
 #ifndef _EC_TYPE_H
@@ -65,7 +66,7 @@ extern "C"
  * comment if application uses only ecx_ functions and own context */
 #define EC_VER1
 
-#include <osal.h>
+#include "osal.h"
 
 /** return value general error */
 #define EC_ERROR           -3
@@ -167,7 +168,7 @@ typedef enum
    EC_ERR_ALREADY_INITIALIZED,
    /** Library not initialized. */
    EC_ERR_NOT_INITIALIZED,
-   /** Timeout occured during execution of the function. */
+   /** Timeout occurred during execution of the function. */
    EC_ERR_TIMEOUT,
    /** No slaves were found. */
    EC_ERR_NO_SLAVES,
@@ -241,7 +242,7 @@ typedef enum
 } ec_datatype;
 
 /** Ethercat command types */
-typedef enum 
+typedef enum
 {
    /** No operation */
    EC_CMD_NOP          = 0x00,
@@ -259,7 +260,7 @@ typedef enum
    EC_CMD_FPRW,
    /** Broadcast Read */
    EC_CMD_BRD,
-   /** Broaddcast Write */
+   /** Broadcast Write */
    EC_CMD_BWR,
    /** Broadcast Read Write */
    EC_CMD_BRW,
@@ -269,15 +270,15 @@ typedef enum
    EC_CMD_LWR,
    /** Logical Memory Read Write */
    EC_CMD_LRW,
-   /** Auto Increment Read Mulitple Write */
+   /** Auto Increment Read Multiple Write */
    EC_CMD_ARMW,
-   /** Configured Read Mulitple Write */
+   /** Configured Read Multiple Write */
    EC_CMD_FRMW
    /** Reserved */
 } ec_cmdtype;
 
 /** Ethercat EEprom command types */
-typedef enum 
+typedef enum
 {
    /** No operation */
    EC_ECMD_NOP         = 0x0000,
@@ -410,7 +411,7 @@ enum
 };
 
 /** Ethercat registers */
-enum 
+enum
 {
    ECT_REG_TYPE        = 0x0000,
    ECT_REG_PORTDES     = 0x0007,
@@ -427,6 +428,12 @@ enum
    ECT_REG_PDICTL      = 0x0140,
    ECT_REG_IRQMASK     = 0x0200,
    ECT_REG_RXERR       = 0x0300,
+   ECT_REG_FRXERR      = 0x0308,
+   ECT_REG_EPUECNT     = 0x030C,
+   ECT_REG_PECNT       = 0x030D,
+   ECT_REG_PECODE      = 0x030E,
+   ECT_REG_LLCNT       = 0x0310,
+   ECT_REG_WDCNT       = 0x0442,
    ECT_REG_EEPCFG      = 0x0500,
    ECT_REG_EEPCTL      = 0x0502,
    ECT_REG_EEPSTAT     = 0x0502,
@@ -477,15 +484,16 @@ enum
 /** Error types */
 typedef enum
 {
-   EC_ERR_TYPE_SDO_ERROR        = 0,
-   EC_ERR_TYPE_EMERGENCY        = 1,
-   EC_ERR_TYPE_PACKET_ERROR     = 3,
-   EC_ERR_TYPE_SDOINFO_ERROR    = 4,
-   EC_ERR_TYPE_FOE_ERROR        = 5,
-   EC_ERR_TYPE_FOE_BUF2SMALL    = 6,
-   EC_ERR_TYPE_FOE_PACKETNUMBER = 7,
-   EC_ERR_TYPE_SOE_ERROR        = 8,
-   EC_ERR_TYPE_MBX_ERROR        = 9
+   EC_ERR_TYPE_SDO_ERROR         = 0,
+   EC_ERR_TYPE_EMERGENCY         = 1,
+   EC_ERR_TYPE_PACKET_ERROR      = 3,
+   EC_ERR_TYPE_SDOINFO_ERROR     = 4,
+   EC_ERR_TYPE_FOE_ERROR         = 5,
+   EC_ERR_TYPE_FOE_BUF2SMALL     = 6,
+   EC_ERR_TYPE_FOE_PACKETNUMBER  = 7,
+   EC_ERR_TYPE_SOE_ERROR         = 8,
+   EC_ERR_TYPE_MBX_ERROR         = 9,
+   EC_ERR_TYPE_FOE_FILE_NOTFOUND = 10
 } ec_err_type;
 
 /** Struct to retrieve errors. */

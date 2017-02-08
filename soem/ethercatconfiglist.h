@@ -1,12 +1,13 @@
 /*
- * Simple Open EtherCAT Master Library 
+ * Simple Open EtherCAT Master Library
  *
  * File    : ethercatconfiglist.h
- * Version : 1.3.0
- * Date    : 24-02-2013
- * Copyright (C) 2005-2013 Speciaal Machinefabriek Ketels v.o.f.
- * Copyright (C) 2005-2013 Arthur Ketels
- * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven 
+ * Version : 1.3.1
+ * Date    : 11-03-2015
+ * Copyright (C) 2005-2015 Speciaal Machinefabriek Ketels v.o.f.
+ * Copyright (C) 2005-2015 Arthur Ketels
+ * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven
+ * Copyright (C) 2014-2015 rt-labs AB , Sweden
  *
  * SOEM is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2 as published by the Free
@@ -47,15 +48,23 @@
  * EEPROM (SII or Slave Information Interface).
  */
 
+#ifndef _ethercatconfiglist_
+#define _ethercatconfiglist_
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 /*
-   explanation of dev:                                   
-    1: static device with no IO mapping ie EK1100        
-    2: input device no mailbox ie simple IO device       
-    3: output device no mailbox                          
-    4: input device with mailbox configuration           
-    5: output device with mailbox configuration          
-    6: input/output device no mailbox                    
-    7: input.output device with mailbox configuration           
+   explanation of dev:
+    1: static device with no IO mapping ie EK1100
+    2: input device no mailbox ie simple IO device
+    3: output device no mailbox
+    4: input device with mailbox configuration
+    5: output device with mailbox configuration
+    6: input/output device no mailbox
+    7: input.output device with mailbox configuration
 */
 #define EC_CONFIGEND 0xffffffff
 
@@ -85,3 +94,9 @@ ec_configlist_t ec_configlist[] = {
       {/*Man=*/0x00000002,/*ID=*/0x13ed3052,/*Name=*/"EL5101"    ,/*dtype=*/7,/*Ibits=*/40,/*Obits=*/24,/*SM2a*/0x1000,/*SM2f*/0x00010024,/*SM3a*/0x1100,/*SM3f*/0x00010020,/*FM0ac*/1,/*FM1ac*/1},
       {/*Man=*/EC_CONFIGEND,/*ID=*/0x00000000,/*Name=*/""        ,/*dtype=*/0,/*Ibits=*/ 0,/*Obits=*/ 0,/*SM2a*/     0,/*SM2f*/         0,/*SM3a*/     0,/*SM3f*/         0,/*FM0ac*/0,/*FM1ac*/0}
 };
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

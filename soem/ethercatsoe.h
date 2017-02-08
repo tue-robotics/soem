@@ -1,12 +1,13 @@
 /*
- * Simple Open EtherCAT Master Library 
+ * Simple Open EtherCAT Master Library
  *
  * File    : ethercatsoe.h
- * Version : 1.3.0
- * Date    : 24-02-2013
- * Copyright (C) 2005-2013 Speciaal Machinefabriek Ketels v.o.f.
- * Copyright (C) 2005-2013 Arthur Ketels
- * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven 
+ * Version : 1.3.1
+ * Date    : 11-03-2015
+ * Copyright (C) 2005-2015 Speciaal Machinefabriek Ketels v.o.f.
+ * Copyright (C) 2005-2015 Arthur Ketels
+ * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven
+ * Copyright (C) 2014-2015 rt-labs AB , Sweden
  *
  * SOEM is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2 as published by the Free
@@ -23,7 +24,7 @@
  * by itself cause the resulting work to be covered by the GNU General Public
  * License. However the source code for this file must still be made available
  * in accordance with section (3) of the GNU General Public License.
-    *
+ *
  * This exception does not invalidate any other reasons why a work based on
  * this file might be covered by the GNU General Public License.
  *
@@ -36,11 +37,11 @@
  * In case you did not receive a copy of the EtherCAT Master License along with
  * SOEM write to Beckhoff Automation GmbH, Eiserstraße 5, D-33415 Verl, Germany
  * (www.beckhoff.com).
-    */
+ */
 
-/** \file 
+/** \file
  * \brief
- * Headerfile for ethercatsoe.c 
+ * Headerfile for ethercatsoe.c
  */
 
 #ifndef _ethercatsoe_
@@ -87,12 +88,12 @@ typedef struct PACKED
    /** maximum length in bytes of list */
    uint16     maxlength;
    union
-   {   
+   {
       uint8   byte[8];
       uint16  word[4];
       uint32  dword[2];
       uint64  lword[1];
-   };   
+   };
 } ec_SoElistt;
 PACKED_END
 
