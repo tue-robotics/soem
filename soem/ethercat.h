@@ -1,9 +1,9 @@
 /*
  * Simple Open EtherCAT Master Library
  *
- * File    : ethercatfoe.h
+ * File    : ethercat.h
  * Version : 1.3.1
- * Date    : 11-03-2015
+ * Date    : 18-12-2015
  * Copyright (C) 2005-2015 Speciaal Machinefabriek Ketels v.o.f.
  * Copyright (C) 2005-2015 Arthur Ketels
  * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven
@@ -41,29 +41,21 @@
 
 /** \file
  * \brief
- * Headerfile for ethercatfoe.c
+ * Headerfile for all ethercat headers
  */
 
-#ifndef _ethercatfoe_
-#define _ethercatfoe_
+#ifndef _EC_ETHERCAT_H
+#define _EC_ETHERCAT_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#include "ethercattype.h"
+#include "nicdrv.h"
+#include "ethercatbase.h"
+#include "ethercatmain.h"
+#include "ethercatdc.h"
+#include "ethercatcoe.h"
+#include "ethercatfoe.h"
+#include "ethercatsoe.h"
+#include "ethercatconfig.h"
+#include "ethercatprint.h"
 
-#ifdef EC_VER1
-int ec_FOEdefinehook(void *hook);
-int ec_FOEread(uint16 slave, char *filename, uint32 password, int *psize, void *p, int timeout);
-int ec_FOEwrite(uint16 slave, char *filename, uint32 password, int psize, void *p, int timeout);
-#endif
-
-int ecx_FOEdefinehook(ecx_contextt *context, void *hook);
-int ecx_FOEread(ecx_contextt *context, uint16 slave, char *filename, uint32 password, int *psize, void *p, int timeout);
-int ecx_FOEwrite(ecx_contextt *context, uint16 slave, char *filename, uint32 password, int psize, void *p, int timeout);
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif
+#endif /* _EC_ETHERCAT_H */

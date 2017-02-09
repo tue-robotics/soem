@@ -1,13 +1,13 @@
 /*
  * Simple Open EtherCAT Master Library
  *
- * File    : ethercatfoe.h
+ * File    : osal_defs.h
  * Version : 1.3.1
  * Date    : 11-03-2015
  * Copyright (C) 2005-2015 Speciaal Machinefabriek Ketels v.o.f.
  * Copyright (C) 2005-2015 Arthur Ketels
  * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven
- * Copyright (C) 2014-2015 rt-labs AB , Sweden
+ * Copyright (C) 2012-2015 rt-labs AB , Sweden
  *
  * SOEM is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2 as published by the Free
@@ -38,29 +38,23 @@
  * SOEM write to Beckhoff Automation GmbH, Eiserstraße 5, D-33415 Verl, Germany
  * (www.beckhoff.com).
  */
-
-/** \file
- * \brief
- * Headerfile for ethercatfoe.c
- */
-
-#ifndef _ethercatfoe_
-#define _ethercatfoe_
+#ifndef _osal_defs_
+#define _osal_defs_
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#ifdef EC_VER1
-int ec_FOEdefinehook(void *hook);
-int ec_FOEread(uint16 slave, char *filename, uint32 password, int *psize, void *p, int timeout);
-int ec_FOEwrite(uint16 slave, char *filename, uint32 password, int psize, void *p, int timeout);
+#ifndef PACKED
+#define PACKED_BEGIN __pragma(pack(push, 1))
+#define PACKED
+#define PACKED_END __pragma(pack(pop))
 #endif
 
-int ecx_FOEdefinehook(ecx_contextt *context, void *hook);
-int ecx_FOEread(ecx_contextt *context, uint16 slave, char *filename, uint32 password, int *psize, void *p, int timeout);
-int ecx_FOEwrite(ecx_contextt *context, uint16 slave, char *filename, uint32 password, int psize, void *p, int timeout);
+#define OSAL_THREAD_HANDLE HANDLE
+#define OSAL_THREAD_FUNC void
+#define OSAL_THREAD_FUNC_RT void
 
 #ifdef __cplusplus
 }

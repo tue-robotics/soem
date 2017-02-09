@@ -1,12 +1,14 @@
 /*
- * Simple Open EtherCAT Master Library 
+/*
+ * Simple Open EtherCAT Master Library
  *
  * File    : nicdrv.h
- * Version : 1.3.0
- * Date    : 24-02-2013
- * Copyright (C) 2005-2013 Speciaal Machinefabriek Ketels v.o.f.
- * Copyright (C) 2005-2013 Arthur Ketels
- * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven 
+ * Version : 1.3.1
+ * Date    : 11-03-2015
+ * Copyright (C) 2005-2015 Speciaal Machinefabriek Ketels v.o.f.
+ * Copyright (C) 2005-2015 Arthur Ketels
+ * Copyright (C) 2008-2009 TU/e Technische Universiteit Eindhoven
+ * Copyright (C) 2012-2015 rt-labs AB , Sweden
  *
  * SOEM is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License version 2 as published by the Free
@@ -27,7 +29,7 @@
  * This exception does not invalidate any other reasons why a work based on
  * this file might be covered by the GNU General Public License.
  *
- * The EtherCAT Technology, the trade name and logo "EtherCAT" are the intellectual
+ * The EtherCAT Technology, the trade name and logo “EtherCAT” are the intellectual
  * property of, and protected by Beckhoff Automation GmbH. You can use SOEM for
  * the sole purpose of creating, using and/or selling or otherwise distributing
  * an EtherCAT network master provided that an EtherCAT Master License is obtained
@@ -38,9 +40,9 @@
  * (www.beckhoff.com).
  */
 
-/** \file 
+/** \file
  * \brief
- * Headerfile for nicdrv.c 
+ * Headerfile for nicdrv.c
  */
 
 #ifndef _nicdrvh_
@@ -63,7 +65,7 @@ typedef struct
    int         (*rxbufstat)[EC_MAXBUF];
    /** received MAC source address (middle word) */
    int         (*rxsa)[EC_MAXBUF];
-} ec_stackT;   
+} ec_stackT;
 
 /** pointer structure to buffers for redundant port */
 typedef struct
@@ -108,7 +110,7 @@ typedef struct
    /** current redundancy state */
    int redstate;
    /** pointer to redundancy port and buffers */
-   ecx_redportt *redport;   
+   ecx_redportt *redport;
    mtx_t * getindex_mutex;
    mtx_t * tx_mutex;
    mtx_t * rx_mutex;
@@ -125,7 +127,7 @@ int ec_setupnic(const char * ifname, int secondary);
 int ec_closenic(void);
 void ec_setbufstat(int idx, int bufstat);
 int ec_getindex(void);
-int ec_outframe(int idx, int sock);
+int ec_outframe(int idx, int stacknumber);
 int ec_outframe_red(int idx);
 int ec_waitinframe(int idx, int timeout);
 int ec_srconfirm(int idx,int timeout);
@@ -136,7 +138,7 @@ int ecx_setupnic(ecx_portt *port, const char * ifname, int secondary);
 int ecx_closenic(ecx_portt *port);
 void ecx_setbufstat(ecx_portt *port, int idx, int bufstat);
 int ecx_getindex(ecx_portt *port);
-int ecx_outframe(ecx_portt *port, int idx, int sock);
+int ecx_outframe(ecx_portt *port, int idx, int stacknumber);
 int ecx_outframe_red(ecx_portt *port, int idx);
 int ecx_waitinframe(ecx_portt *port, int idx, int timeout);
 int ecx_srconfirm(ecx_portt *port, int idx,int timeout);
